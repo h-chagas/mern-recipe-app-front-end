@@ -11,11 +11,11 @@ See the packages used in this project
 
 * React framework
 * [react-router-dom](https://www.npmjs.com/package/react-router-dom)
-    * _Declarative routing for React web applications_
+    * _Declarative routing for React web applications_. Create routes in different pages
 * [axios](https://www.npmjs.com/package/axios)
-    * _Promise based HTTP client for the browser and node.js_
+    * _Promise based HTTP client for the browser and node.js_. Fetch data :)
 * [react-cookie](https://www.npmjs.com/package/react-cookie)
-    * _Universal cookies for JavaScript_
+    * _Universal cookies for JavaScript_. Deal with cookies in React
 
 ##### Server side #####
 
