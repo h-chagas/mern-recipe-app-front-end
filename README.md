@@ -1,4 +1,3 @@
-client# Recipe App #
 ##### A MERN webapp project #####
 
 _It is the FRONT-END side of the project. To visit the back-end, please check_ [here](https://github.com/h-chagas/mern-recipe-app-back-end)
@@ -16,7 +15,7 @@ See the packages used in this project
     * _Promise based HTTP client for the browser and node.js_. Fetch data :)
 * [react-cookie](https://www.npmjs.com/package/react-cookie)
     * _Universal cookies for JavaScript_. Deal with cookies in React
-* ´[Tailwind](https://tailwindcss.com/)
+* [Tailwind](https://tailwindcss.com/)
     * _CSS framework built directly in the markup_
 
 ##### Server side #####
