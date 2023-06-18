@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useGetUserID } from "../hooks/useGetUserID";
+import {useNavigate} from "react-router-dom"
 
 export const CreateRecipe = () => {
+  const userID = useGetUserID(); //variable that stores the userID. It can be used elsewhere!
+ 
   const [recipe, setRecipe] = useState({
     name: "",
     description: "",
@@ -9,8 +13,11 @@ export const CreateRecipe = () => {
     instructions: "",
     imageUrl: "",
     cookingTime: 0,
-    userOwner: 0,
+    userOwner: userID,
   });
+
+  const navigate = useNavigate();
+
 
   const handleChange = (event) => {
     //every time the input is changed, it will be recorded
@@ -37,6 +44,7 @@ export const CreateRecipe = () => {
     try {
       await axios.post("http://localhost:3001/recipes", recipe)     //send the data in this form by POST request for the recipe route
       alert("Recipe Created")
+      navigate("/")
     } catch (error) {
       console.error(error);
     }
