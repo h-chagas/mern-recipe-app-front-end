@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useGetUserID } from "../hooks/useGetUserID.js";
-// import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-// import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 export const Home = () => {
   const [recipes, setRecipes] = useState([]); //keep track of all recipes from database
-  // const [isSave, setIsSave] = useState(FavoriteBorderIcon);
+  const [savedRecipes, setSavedRecipes] = useState([]);
+  const [savedBtnClicked, isSavedBtnClicked] = useState(false);
   const userID = useGetUserID();
 
   useEffect(() => {
@@ -21,7 +22,20 @@ export const Home = () => {
       }
     };
 
+    const fetchSavedRecipe = async () => {
+      try {
+        const response = await axios.get(
+          //send the data in this form by POST request for the recipe route
+          `http://localhost:3001/recipes/savedRecipes/ids/${userID}`
+        );
+        setSavedRecipes(response.data.savedRecipes);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
     fetchRecipe();
+    fetchSavedRecipe();
   }, []);
 
   const saveRecipe = async (recipeID) => {
@@ -30,22 +44,15 @@ export const Home = () => {
         recipeID,
         userID,
       });
-      console.log(response);
-      // setRecipes(response.data);
+      setSavedRecipes(response.data.savedRecipes);
     } catch (error) {
       console.error(error);
     }
   };
 
-  // const handleSaveIcon = () => {
-  //   setIsSave(FavoriteIcon)
-  // }
-
-  // useEffect(() => {
-  //   isSave
-     
-  // }, [isSave])
-  
+  const isBtnSaveClicked = () => {
+    isSavedBtnClicked(!savedBtnClicked);
+  };
 
   return (
     <div>
@@ -98,10 +105,26 @@ export const Home = () => {
               </p>
             </div>
             <div className="flex flex-col items-center justify-center m-6">
-              <button onClick={() => saveRecipe(recipe._id)}>Save</button>
-              {/* <button onClick={() => {saveRecipe(); handleSaveIcon()}}> {isSave ? FavoriteIcon : FavoriteBorderIcon}</button>
+              <button
+                onClick={() => {
+                  saveRecipe(recipe._id);
+                  isBtnSaveClicked();
+                }}
+                className={`${isBtnSaveClicked ? "disable" : "block"}`}
+              >
+                {savedRecipes.includes(recipe._id) ? (
+                <div>
+                  <p>Saved</p>
+                  <FavoriteIcon />
+                </div>
+              ) : (
+                <div>
+                  <p>Save</p>
+                  <FavoriteBorderIcon />
+                </div>
+              )}
+              </button>
               
-              <p>Save</p> */}
             </div>
           </li>
         ))}
