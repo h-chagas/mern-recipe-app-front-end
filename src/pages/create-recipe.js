@@ -39,7 +39,7 @@ export const CreateRecipe = () => {
     // In this case, we are changing the ingredients field from the recipe object (see useState above). Initially will be an empty array, but as soon the ingredients are being added, the spread operator keeps the old ingredients and then add new ones
   };
 
-  const onSubmit = async (event) => { //Send the form date for the API
+  const onSubmit = async (event) => { //Send the form date to the API
     event.preventDefault()
     try {
       await axios.post("http://localhost:3001/recipes", recipe)     //send the data in this form by POST request for the recipe route
@@ -145,7 +145,7 @@ export const CreateRecipe = () => {
             Image URL
           </label>
           <span className="text-sm">
-            Use <a href="https://www.pexels.com/">Pexel.com</a> to grab a high
+            Use <a href="https://www.pexels.com/">Pexel.com</a> to grab a horizontal and high
             quality picture for your recipe :)
           </span>
           <input
