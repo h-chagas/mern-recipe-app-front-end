@@ -2,18 +2,19 @@ import { Link } from "react-router-dom";
 import logo from "../assets/images/logo.png";
 import { useState } from "react";
 import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 export const Navbar = () => {
   const [navbar, setNavbar] = useState(false);
   const [cookies, setCookies] = useCookies(["access_token"]);
   const navigate = useNavigate();
 
-  const logout = () => { //function to logout. Will set cookies to empty string, remove userID from local storage, and will navigate to /auth page
-    setCookies("access_token", "")
+  const logout = () => {
+    //function to logout. Will set cookies to empty string, remove userID from local storage, and will navigate to /auth page
+    setCookies("access_token", "");
     window.localStorage.removeItem("userID");
-    navigate("/auth")
-  }
+    navigate("/auth");
+  };
 
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900">
@@ -64,37 +65,38 @@ export const Navbar = () => {
                 Home
               </Link>
             </li>
-            <li>
+
+            {!cookies.access_token ? ( //If logged in, will show Log out button, else will show Login/Register Link anchor
               <Link
-                to="/create-recipe"
+                to="/auth"
                 className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                 onClick={() => setNavbar(!navbar)}
               >
-                Create Recipe
+                Login/Register
               </Link>
-            </li>
-            <li>
-              <Link
-                to="/saved-recipes"
-                className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                onClick={() => setNavbar(!navbar)}
-              >
-                Saved Recipes
-              </Link>
-            </li>
-            <li>
-              {!cookies.access_token ? ( //If logged in, will show Log out button, else will show Login/Register Link anchor
-                <Link
-                  to="/auth"
-                  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                  onClick={() => setNavbar(!navbar)}
-                >
-                  Login/Register
-                </Link>
-              ) : (
+            ) : (
+              <>
+                <li>
+                  <Link
+                    to="/create-recipe"
+                    className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    onClick={() => setNavbar(!navbar)}
+                  >
+                    Create Recipe
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/saved-recipes"
+                    className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    onClick={() => setNavbar(!navbar)}
+                  >
+                    Saved Recipes
+                  </Link>
+                </li>
                 <button onClick={logout}>Log out</button>
-              )}
-            </li>
+              </>
+            )}
           </ul>
         </div>
       </div>
