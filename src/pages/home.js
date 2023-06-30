@@ -18,7 +18,7 @@ export const Home = () => {
 
     const fetchRecipe = async () => {
       try {
-        const response = await axios.get("https://mern-recipe-api.onrender.com/recipes"); //send the data in this form by POST request for the recipe route
+        const response = await axios.get("https://mern-recipe-app-zw2r.onrender.com/recipes"); //send the data in this form by POST request for the recipe route
         setRecipes(response.data);
       } catch (error) {
         console.error(error);
@@ -29,7 +29,7 @@ export const Home = () => {
       try {
         const response = await axios.get(
           //send the data in this form by POST request for the recipe route
-          `https://mern-recipe-api.onrender.com/recipes/savedRecipes/ids/${userID}`
+          `https://mern-recipe-app-zw2r.onrender.com/recipes/savedRecipes/ids/${userID}`
         );
         setSavedRecipes(response.data.savedRecipes);
       } catch (error) {
@@ -43,7 +43,7 @@ export const Home = () => {
 
   const saveRecipe = async (recipeID) => {
     try {
-      const response = await axios.put("https://mern-recipe-api.onrender.com/recipes", 
+      const response = await axios.put("https://mern-recipe-app-zw2r.onrender.com/recipes", 
       {
         recipeID,
         userID,
