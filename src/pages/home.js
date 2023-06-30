@@ -81,7 +81,7 @@ export const Home = () => {
         {recipes.map((recipe) => (
           <li
             key={recipe._id}
-            className="mb-10 mx-8 max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+            className="mb-10 mx-8 max-w-sm bg-white border border-gray-200 rounded-lg shadow"
           >
             <div className="flex items-center justify-center">
               <h2 className="font-bold text-center text-xl my-4 md:text-2xl md:my-6 lg:text-3xl lg:my-8">
