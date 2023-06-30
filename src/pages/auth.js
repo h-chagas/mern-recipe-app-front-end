@@ -65,6 +65,8 @@ const Register = () => {
         password,
       }); //////////////////// CHANGE IT AFTER DEPLOYMENT
       alert("Registration completed! Now login.");
+      setUsername("");
+      setPassword("");
     } catch (error) {
       console.error(error);
     }
