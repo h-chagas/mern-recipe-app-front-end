@@ -39,7 +39,7 @@ export const Home = () => {
 
     fetchRecipe();
     fetchSavedRecipe();
-  }, []);
+  }, [userID]);
 
   const saveRecipe = async (recipeID) => {
     try {
@@ -60,8 +60,20 @@ export const Home = () => {
     isSavedBtnClicked(!savedBtnClicked);
   };
 
+  const isLoggedIn = () => {
+    if (!cookies.access_token) alert("You must be logged int to save recipes!");
+  }
+
   return (
     <div>
+      {
+        !cookies.access_token ?
+        <div className="bg-orange-200 flex items-center justify-center">
+          <p className="text-center">Log in to <strong> create your recipes </strong>, <strong> share with others </strong> and have your own <strong> favourite recipes page </strong></p>
+        </div>
+        :
+        <></>
+      }
       <h1 className="text-center text-3xl mb-6 md:text-4xl md:mb-8 lg:text-5xl lg:mb-10">
         Recipes
       </h1>
@@ -113,6 +125,7 @@ export const Home = () => {
             <div className="flex flex-col items-center justify-center m-6">
               <button
                 onClick={() => {
+                  isLoggedIn();
                   saveRecipe(recipe._id);
                   isBtnSaveClicked();
                 }}
@@ -129,6 +142,7 @@ export const Home = () => {
                   <FavoriteBorderIcon />
                 </div>
               )}
+              
               </button>
               
             </div>
