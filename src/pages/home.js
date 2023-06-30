@@ -3,10 +3,13 @@ import axios from "axios";
 import { useGetUserID } from "../hooks/useGetUserID.js";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { useCookies } from "react-cookie";
+
 
 export const Home = () => {
   const [recipes, setRecipes] = useState([]); //keep track of all recipes from database
   const [savedRecipes, setSavedRecipes] = useState([]);
+  const [cookies, _] = useCookies(["access_token"]);
   const [savedBtnClicked, isSavedBtnClicked] = useState(false);
   const userID = useGetUserID();
 
@@ -40,10 +43,13 @@ export const Home = () => {
 
   const saveRecipe = async (recipeID) => {
     try {
-      const response = await axios.put("http://localhost:3001/recipes", {
+      const response = await axios.put("http://localhost:3001/recipes", 
+      {
         recipeID,
         userID,
-      });
+      }, 
+      { headers: { authorization: cookies.access_token}}
+      );
       setSavedRecipes(response.data.savedRecipes);
     } catch (error) {
       console.error(error);
@@ -112,7 +118,7 @@ export const Home = () => {
                 }}
                 className={`${isBtnSaveClicked ? "disable" : "block"}`}
               >
-                {savedRecipes.includes(recipe._id) ? (
+                {(savedRecipes || []).includes(recipe._id) ? (
                 <div>
                   <p>Saved</p>
                   <FavoriteIcon />

@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useGetUserID } from "../hooks/useGetUserID";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
+
 
 export const CreateRecipe = () => {
   const userID = useGetUserID(); //variable that stores the userID. It can be used elsewhere!
- 
+  const [cookies, _] = useCookies(["access_token"]);
+
+
   const [recipe, setRecipe] = useState({
     name: "",
     description: "",
@@ -17,7 +21,6 @@ export const CreateRecipe = () => {
   });
 
   const navigate = useNavigate();
-
 
   const handleChange = (event) => {
     //every time the input is changed, it will be recorded
@@ -31,7 +34,6 @@ export const CreateRecipe = () => {
     const ingredients = recipe.ingredients;
     ingredients[index] = value;
     setRecipe({ ...recipe, ingredients });
-    
   };
 
   const addIngredient = () => {
@@ -39,16 +41,19 @@ export const CreateRecipe = () => {
     // In this case, we are changing the ingredients field from the recipe object (see useState above). Initially will be an empty array, but as soon the ingredients are being added, the spread operator keeps the old ingredients and then add new ones
   };
 
-  const onSubmit = async (event) => { //Send the form date to the API
-    event.preventDefault()
+  const onSubmit = async (event) => {
+    //Send the form date to the API
+    event.preventDefault();
     try {
-      await axios.post("http://localhost:3001/recipes", recipe)     //send the data in this form by POST request for the recipe route
-      alert("Recipe Created")
-      navigate("/")
+      await axios.post("http://localhost:3001/recipes", recipe, {
+        headers: { authorization: cookies.access_token },
+      }); //send the data in this form by POST request for the recipe route
+      alert("Recipe Created");
+      navigate("/");
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
   return (
     <div className="flex flex-col">
@@ -99,12 +104,12 @@ export const CreateRecipe = () => {
 
           {recipe.ingredients.map((ingredient, index) => (
             <input
-            key={index}
-            type="text"
-            name="ingredients"
-            id="ingredients"
-            value={ingredient}
-            onChange={(event) => handleIngredientChange(event, index)}
+              key={index}
+              type="text"
+              name="ingredients"
+              id="ingredients"
+              value={ingredient}
+              onChange={(event) => handleIngredientChange(event, index)}
               className="w-full mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Mix of Vegetables"
               required
@@ -112,7 +117,7 @@ export const CreateRecipe = () => {
           ))}
 
           <button
-          type="button"
+            type="button"
             className="mt-4 float-right bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
             onClick={addIngredient}
           >
@@ -145,8 +150,8 @@ export const CreateRecipe = () => {
             Image URL
           </label>
           <span className="text-sm">
-            Use <a href="https://www.pexels.com/">Pexel.com</a> to grab a horizontal and high
-            quality picture for your recipe :)
+            Use <a href="https://www.pexels.com/">Pexel.com</a> to grab a
+            horizontal and high quality picture for your recipe :)
           </span>
           <input
             type="text"
