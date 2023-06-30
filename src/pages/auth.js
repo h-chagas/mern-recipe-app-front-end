@@ -26,7 +26,7 @@ const Login = () => {
     event.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:3001/auth/login", { //////////////////// CHANGE IT AFTER DEPLOYMENT
+      const response = await axios.post("https://mern-recipe-app.onrender.com/auth/login", { //////////////////// CHANGE IT AFTER DEPLOYMENT
         username,
         password,
       });
@@ -60,7 +60,7 @@ const Register = () => {
   const onSubmit = async (event) => {
     event.preventDefault(); //won't refresh the page
     try {
-      await axios.post("http://localhost:3001/auth/register", {
+      await axios.post("https://mern-recipe-app.onrender.com/auth/register", {
         username,
         password,
       }); //////////////////// CHANGE IT AFTER DEPLOYMENT

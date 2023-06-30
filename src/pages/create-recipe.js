@@ -45,7 +45,7 @@ export const CreateRecipe = () => {
     //Send the form date to the API
     event.preventDefault();
     try {
-      await axios.post("http://localhost:3001/recipes", recipe, {
+      await axios.post("https://mern-recipe-app.onrender.com/recipes", recipe, {
         headers: { authorization: cookies.access_token },
       }); //send the data in this form by POST request for the recipe route
       alert("Recipe Created");

@@ -13,7 +13,7 @@ export const SavedRecipes = () => {
       try {
         const response = await axios.get(
           //send the data in this form by POST request for the recipe route
-          `http://localhost:3001/recipes/savedRecipes/${userID}`
+          `https://mern-recipe-app.onrender.com/recipes/savedRecipes/${userID}`
         );
         setSavedRecipes(response.data.savedRecipes);
       } catch (error) {
