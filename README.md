@@ -58,4 +58,4 @@ I named the token variable as JWT_TOKEN. You can change it as you like in _users
 
 ###### Deployment ######
 
-Click [here](https://mern-recipe-app-zw2r.onrender.com) to access the deployed API.
+Click [here](https://mern-recipe-app-zw2r.onrender.com) to access the deployed application.
